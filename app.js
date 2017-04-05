@@ -1,4 +1,5 @@
 var request = require('request');
+var twillio = require('./twillio')
 
 const URL = 'https://almundo.com.ar/flights/async/itineraries'
 const dest = ['PAR', 'MAD', 'LON', 'BRU']
@@ -68,7 +69,8 @@ const getFlightsFromService = query => {
         }, {
           flight: getLowerPrices(res),
           query: url,
-          price: getLowerPrice(getLowerPrices(res))
+          price: getLowerPrice(getLowerPrices(res)),
+          timestamp: Date.now()
         })
 
         if (getLowerPrice(getLowerPrices(res)) < bestPrice['-KgvWRGTI1jgRhXssfdi'].price) {
@@ -78,8 +80,11 @@ const getFlightsFromService = query => {
           }, {
             flight: getLowerPrices(res),
             query: url,
-            price: getLowerPrice(getLowerPrices(res))
+            price: getLowerPrice(getLowerPrices(res)),
+            timestamp: Date.now()
           })
+
+          twillio.sendSms('Ding ding ding! $' + getLowerPrice(getLowerPrices(res)))
         }
       });
     })

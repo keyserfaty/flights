@@ -3,7 +3,11 @@
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
+  "scripts": {
+    "start": "node app.js"
+  },
   "dependencies": {
-    "request": "^2.81.0"
+    "request": "^2.81.0",
+    "twilio": "^2.11.1"
   }
 }
