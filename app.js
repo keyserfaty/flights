@@ -1,5 +1,6 @@
 var request = require('request');
 var twillio = require('./twillio')
+var CronJob = require('cron').CronJob;
 
 const URL = 'https://almundo.com.ar/flights/async/itineraries'
 const dest = ['PAR', 'MAD', 'LON', 'BRU']
@@ -91,4 +92,6 @@ const getFlightsFromService = query => {
   })
 }
 
-getFlightsFromService(query)
+new CronJob('*/15 * * * *', function() {
+  getFlightsFromService(query)
+}, null, true, 'America/Los_Angeles');
