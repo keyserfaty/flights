@@ -8,6 +8,12 @@ cfg.user = {
 // Firebase API
 cfg.firebase = 'https://flights-d62e5.firebaseio.com/'
 
+// Almundo API
+cfg.almundo = 'https://almundo.com.ar/flights/async/itineraries'
+
+// Destinations
+cfg.dest = ['PAR', 'MAD', 'LON', 'BRU']
+
 // HTTP Port to run our web application
 cfg.port = process.env.PORT || 3000
 

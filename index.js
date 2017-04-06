@@ -2,31 +2,12 @@ var request = require('request');
 var twillio = require('./services/twillio')
 var CronJob = require('cron').CronJob;
 var api = require('./services/api')
+var config = require('./config')
+var parsers = require('./parsers')
 
-const URL = 'https://almundo.com.ar/flights/async/itineraries'
-const dest = ['PAR', 'MAD', 'LON', 'BRU']
-const query = dest.map(d => `${URL}?adults=1&date=2017-07-16,2017-07-26&from=BUE,${d}&to=${d},BUE`)
+var query = config.dest.map(d => `${config.almundo}?adults=1&date=2017-07-16,2017-07-26&from=BUE,${d}&to=${d},BUE`)
 
-const getLowerPrices = response => response
-  .results.matrixlowestPrice.data
-  .map(item => {
-    if (item.values.some(value => value.lowest_price)) {
-      return Object.keys(item).reduce((res, key) => {
-        if (key === 'values') {
-          res.values = item.values.filter(value => value.lowest_price)
-          return res
-        }
-
-        res[key] = item[key]
-        return res
-      }, {})
-    }
-  })
-  .filter(item => item !== undefined)
-
-const getLowerPrice = response => response[0].values[0].value
-
-const getFlightsFromService = query => {
+var getFlightsFromService = query => {
   api({
     method: 'get',
     path: 'best'
@@ -34,30 +15,26 @@ const getFlightsFromService = query => {
   .then(bestPrice => {
     query.map(url => {
       request(url, function (error, response, body) {
-        const res = JSON.parse(body)
+        var res = JSON.parse(body)
+        var bodyRes = {
+          flight: parsers.getLowerPrices(res),
+          query: url,
+          price: parsers.getLowerPrice(parsers.getLowerPrices(res)),
+          timestamp: Date.now()
+        }
 
         api({
           method: 'post',
           path: 'flights',
-        }, {
-          flight: getLowerPrices(res),
-          query: url,
-          price: getLowerPrice(getLowerPrices(res)),
-          timestamp: Date.now()
-        })
+        }, bodyRes)
 
-        if (getLowerPrice(getLowerPrices(res)) < bestPrice['-KgvWRGTI1jgRhXssfdi'].price) {
+        if (parsers.getLowerPrice(parsers.getLowerPrices(res)) < bestPrice['-KgvWRGTI1jgRhXssfdi'].price) {
           api({
             method: 'put',
             path: 'best/-KgvWRGTI1jgRhXssfdi',
-          }, {
-            flight: getLowerPrices(res),
-            query: url,
-            price: getLowerPrice(getLowerPrices(res)),
-            timestamp: Date.now()
-          })
+          }, bodyRes)
 
-          twillio.sendSms('Ding ding ding! $' + getLowerPrice(getLowerPrices(res)))
+          twillio.sendSms('Ding ding ding! $' + parsers.getLowerPrice(parsers.getLowerPrices(res)))
         }
       });
     })
