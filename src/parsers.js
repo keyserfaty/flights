@@ -16,3 +16,10 @@ export const getLowerPrices = response => response
   .filter(item => item !== undefined)
 
 export const getLowerPrice = response => response[0].values[0].value
+
+export const buildFlightObject = arr => arr
+  .map(flight => ({
+    flight: getLowerPrices(JSON.parse(flight)),
+    price: getLowerPrice(getLowerPrices(JSON.parse(flight))),
+    timestamp: Date.now()
+  }))
