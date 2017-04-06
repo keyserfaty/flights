@@ -34,7 +34,7 @@ const getFlightsFromServices = co(function * () {
   }
 })
 
-//new CronJob.CronJob('*/15 * * * *', function() {
-//  console.log('--- Starting a new batch at ' + Date.now() + ' ---')
+new CronJob.CronJob('*/15 * * * *', function() {
+  console.log('--- Starting a new batch at ' + Date.now() + ' ---')
   getFlightsFromServices
-//}, null, true, 'America/Los_Angeles');
+}, null, true, 'America/Los_Angeles');
