@@ -1,7 +1,7 @@
-var config = require('../config')
-var request = require('request')
+import request from 'request'
+import config from '../config'
 
-var api = (opt, obj) => {
+const api = (opt, obj) => {
   var req = {
     method: opt.method,
     url: config.firebase + opt.path + '.json',
