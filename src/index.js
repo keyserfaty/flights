@@ -6,9 +6,9 @@ import co from 'co'
 import api from './services/api'
 import config from './config'
 
-import { getLowerPrice, getLowerPrices, buildFlightObject } from './parsers'
-import { buildRequestArray, buildFlightPostArray, msg, fail } from './helpers'
-import { getFlights, getBestPrice } from './services/flights'
+import {getLowerPrice, getLowerPrices, buildFlightObject} from './parsers'
+import {buildRequestArray, buildFlightPostArray, msg, fail} from './helpers'
+import {getFlights, getBestPrice} from './services/flights'
 
 const getFlightsFromServices = co(function * () {
   //* Build url list for Almundo
@@ -24,7 +24,7 @@ const getFlightsFromServices = co(function * () {
     const flight = JSON.parse(flights[i])
 
     if (getLowerPrice(getLowerPrices(flight)) < bestPrice['-KgvWRGTI1jgRhXssfdi'].price) {
-      yield api({ method: 'put', path: 'best/-KgvWRGTI1jgRhXssfdi', }, flight)
+      yield api({method: 'put', path: 'best/-KgvWRGTI1jgRhXssfdi',}, flight)
 
       twillio.sendSms('Ding ding ding! $' + getLowerPrice(getLowerPrices(flight)))
       msg('--- Ding ding ding! Found a best price and texted the user ---')
@@ -34,7 +34,12 @@ const getFlightsFromServices = co(function * () {
   }
 })
 
-new CronJob.CronJob('*/15 * * * *', function() {
-  console.log('--- Starting a new batch at ' + Date.now() + ' ---')
-  getFlightsFromServices
-}, null, true, 'America/Los_Angeles');
+//const testGet = co(function * () {
+//  const urls = ''
+//
+//})
+
+//new CronJob.CronJob('*/15 * * * *', function() {
+//  console.log('--- Starting a new batch at ' + Date.now() + ' ---')
+//  getFlightsFromServices
+//}, null, true, 'America/Los_Angeles');
