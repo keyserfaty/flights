@@ -42,5 +42,6 @@ var getFlightsFromService = query => {
 }
 
 new CronJob('*/15 * * * *', function() {
+  console.log('--- Starting a new batch at ' + Date.now() + ' ---')
   getFlightsFromService(query)
 }, null, true, 'America/Los_Angeles');

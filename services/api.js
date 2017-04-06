@@ -1,4 +1,5 @@
 var config = require('../config')
+var request = require('request')
 
 var api = (opt, obj) => {
   var req = {
@@ -20,7 +21,14 @@ var api = (opt, obj) => {
         return reject(body)
       }
 
-      console.log('Success! ' + body)
+      if (opt.method == 'get') {
+        console.log('Success getting best historical price!')
+      }
+
+      if (opt.method == 'post' || opt.method == 'put') {
+        console.log('Success creating a new flight! ' + JSON.stringify(body))
+      }
+
       return resolve(body)
     })
   })
