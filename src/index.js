@@ -15,18 +15,18 @@ const getFlightsFromServices = co(function * () {
   // 2. Get best historical price
   const bestPrice = yield getBestPrice(flights)
 
-  for (let i = 0; i < flights.length; i++) {
-    const flight = JSON.parse(flights[i])
-
-    if (getLowerPrice(getLowerPrices(flight)) < bestPrice['-KgvWRGTI1jgRhXssfdi'].price) {
-      yield api({method: 'PUT', path: 'best/-KgvWRGTI1jgRhXssfdi'}, flight)
-
-      twillio.sendSms('Ding ding ding! $' + getLowerPrice(getLowerPrices(flight)))
-      msg('--- Ding ding ding! Found a best price and texted the user ---')
-    } else {
-      msg('--- No best price find in batch :( ---')
-    }
-  }
+  //for (let i = 0; i < flights.length; i++) {
+  //  const flight = JSON.parse(flights[i])
+  //
+  //  if (getLowerPrice(getLowerPrices(flight)) < bestPrice['-KgvWRGTI1jgRhXssfdi'].price) {
+  //    yield api({method: 'PUT', path: 'best/-KgvWRGTI1jgRhXssfdi'}, flight)
+  //
+  //    twillio.sendSms('Ding ding ding! $' + getLowerPrice(getLowerPrices(flight)))
+  //    msg('--- Ding ding ding! Found a best price and texted the user ---')
+  //  } else {
+  //    msg('--- No best price find in batch :( ---')
+  //  }
+  //}
 })
 
 //new CronJob.CronJob('*/15 * * * *', function() {

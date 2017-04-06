@@ -1,10 +1,10 @@
 import request from 'request'
-import config from '../config'
+import { cfg } from '../config'
 
 const api = (opt, obj) => {
   const req = {
     method: opt.method,
-    url: config.firebase + opt.path + '.json',
+    url: cfg['FIREBASE'] + opt.path + '.json',
     json: true,
     headers: {
       'content-type': 'application/json',
