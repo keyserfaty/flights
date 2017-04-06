@@ -6,7 +6,7 @@ import { list as services } from './helpers/queries'
 
 import { getFlights, getBestPrice, alertBestPrice, postBestPrice } from './services/flights'
 
-const getFlightsFromServices = co(function * () {
+const getFlightsFromServices = () => co(function * () {
   // 1. Get flights for this dates
   const flights = yield getFlights(services)
 
@@ -31,5 +31,5 @@ const getFlightsFromServices = co(function * () {
 
 cron.CronJob('*/15 * * * *', function () {
   msg('--- Starting a new batch at ' + Date.now() + ' ---')
-  getFlightsFromServices
+  getFlightsFromServices()
 }, null, true, 'America/Los_Angeles')
