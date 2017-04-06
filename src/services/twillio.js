@@ -1,17 +1,17 @@
-var config = require('./../config');
-var client = require('twilio')(config.accountSid, config.authToken);
+import { cfg, user } from '../config'
+const client = require('twilio')(cfg.accountSid, cfg.authToken)
 
-module.exports.sendSms = function(message) {
+module.exports.sendSms = function (message) {
   client.messages.create({
     body: message,
-    to: config.user.phone,
-    from: config.sendingNumber
-  }, function(err, data) {
+    to: user.phone,
+    from: cfg.sendingNumber,
+  }, function (err, data) {
     if (err) {
-      console.error('Could not notify administrator');
-      console.error(err);
+      console.error('Could not notify administrator')
+      console.error(err)
     } else {
-      console.log('Message sent!');
+      console.log('Message sent!')
     }
-  });
-};
+  })
+}

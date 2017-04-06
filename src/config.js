@@ -1,6 +1,8 @@
 const cfg = {
-  firebase: 'https://flights-d62e5.firebaseio.com/',
-  almundo: 'https://almundo.com.ar/flights/async/itineraries',
+  FIREBASE: 'https://flights-d62e5.firebaseio.com/',
+  ALMUNDO: 'https://almundo.com.ar/flights/async/itineraries',
+  DESPEGAR: 'https://www.despegar.com.ar/shop/flights/data/refine',
+  services: ['DESPEGAR', 'ALMUNDO'],
   port: process.env.PORT || 3000,
   secret: process.env.APP_SECRET || 'keyboard cat',
   accountSid: process.env.TWILIO_ACCOUNT_SID,
