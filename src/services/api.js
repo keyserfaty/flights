@@ -16,17 +16,9 @@ const api = (opt, obj) => {
   }
 
   return new Promise((resolve, reject) => {
-    request(req, function (err, httpResponse, body) {
+    return request(req, function (err, httpResponse, body) {
       if (err) {
-        return reject(body)
-      }
-
-      if (opt.method == 'get') {
-        console.log('Success getting best historical price!')
-      }
-
-      if (opt.method == 'post' || opt.method == 'put') {
-        console.log('Success creating a new flight! ' + JSON.stringify(body))
+        return reject(err)
       }
 
       return resolve(body)
@@ -34,4 +26,4 @@ const api = (opt, obj) => {
   })
 }
 
-module.exports = api
+export default api
