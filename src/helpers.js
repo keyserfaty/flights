@@ -3,7 +3,7 @@ import api from './services/api'
 
 export const buildRequestArray = arr => arr
 .reduce((res, url) => {
-  const each = new Promise(function(resolve, reject) {
+  const each = new Promise(function (resolve, reject) {
     request(url, function (error, response, body) {
       if (error) return reject(error)
       return resolve(body)
@@ -16,7 +16,7 @@ export const buildRequestArray = arr => arr
 
 export const buildFlightPostArray = arr => arr
 .reduce((res, flight) => {
-  const each = api({ method: 'post', path: 'flights', }, flight)
+  const each = api({ method: 'post', path: 'flights' }, flight)
 
   res.push(each)
   return res

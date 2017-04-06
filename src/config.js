@@ -2,7 +2,7 @@ var cfg = {}
 
 cfg.user = {
   name: 'Karen',
-  phone: '+541136266811'
+  phone: '+541136266811',
 }
 
 // Firebase API
