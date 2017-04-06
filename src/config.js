@@ -25,7 +25,7 @@ cfg.authToken = process.env.TWILIO_AUTH_TOKEN
 cfg.sendingNumber = process.env.TWILIO_NUMBER
 
 var requiredConfig = [cfg.accountSid, cfg.authToken, cfg.sendingNumber]
-var isConfigured = requiredConfig.every(function(configValue) {
+var isConfigured = requiredConfig.every(function (configValue) {
   return configValue || false
 })
 

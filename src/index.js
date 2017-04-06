@@ -23,7 +23,7 @@ const getFlightsFromServices = co(function * () {
     const flight = JSON.parse(flights[i])
 
     if (getLowerPrice(getLowerPrices(flight)) < bestPrice['-KgvWRGTI1jgRhXssfdi'].price) {
-      yield api({method: 'put', path: 'best/-KgvWRGTI1jgRhXssfdi'}, flight)
+      yield api({method: 'PUT', path: 'best/-KgvWRGTI1jgRhXssfdi'}, flight)
 
       twillio.sendSms('Ding ding ding! $' + getLowerPrice(getLowerPrices(flight)))
       msg('--- Ding ding ding! Found a best price and texted the user ---')

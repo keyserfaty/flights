@@ -16,7 +16,7 @@ export const buildRequestArray = arr => arr
 
 export const buildFlightPostArray = arr => arr
 .reduce((res, flight) => {
-  const each = api({ method: 'post', path: 'flights' }, flight)
+  const each = api({ method: 'POST', path: 'flights' }, flight)
 
   res.push(each)
   return res

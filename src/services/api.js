@@ -7,11 +7,11 @@ const api = (opt, obj) => {
     url: config.firebase + opt.path + '.json',
     json: true,
     headers: {
-      "content-type": "application/json",
+      'content-type': 'application/json',
     },
   }
 
-  if (opt.method == 'post' || opt.method == 'put') {
+  if (opt.method === 'POST' || opt.method === 'PUT') {
     req.body = obj
   }
 

@@ -1,5 +1,5 @@
 import co from 'co'
-import { buildRequestArray, buildFlightPostArray, msg, fail } from '../helpers'
+import { buildRequestArray, buildFlightPostArray, msg } from '../helpers'
 import { buildFlightObject } from '../parsers'
 import api from './api'
 
@@ -16,7 +16,7 @@ const postFlights = flights => co(function * () {
 })
 
 const getBestPrice = () => co(function * () {
-  const response = yield api({ method: 'get', path: 'best'})
+  const response = yield api({ method: 'GET', path: 'best' })
   msg('--- Successfully brought best historical price ---')
   return response
 })
@@ -24,5 +24,5 @@ const getBestPrice = () => co(function * () {
 export {
   getFlights,
   postFlights,
-  getBestPrice
+  getBestPrice,
 }
