@@ -3,18 +3,14 @@ import CronJob from 'cron'
 import co from 'co'
 
 import api from './helpers/api'
-import { cfg, user } from './config'
 import { msg } from './helpers/utils'
+import { list as urlList } from './helpers/queries'
 
-import { getLowerPrice, getLowerPrices } from './parsers'
 import { getFlights, getBestPrice } from './services/flights'
 
 const getFlightsFromServices = co(function * () {
-  //* Build url list for Almundo
-  const urlsList = cfg.dest.map(d => `${cfg['ALMUNDO']}?adults=1&date=2017-07-16,2017-07-26&from=BUE,${d}&to=${d},BUE`)
-
   // 1. Get flights for this dates
-  const flights = yield getFlights(urlsList)
+  const flights = yield getFlights(urlList)
 
   // 2. Get best historical price
   const bestPrice = yield getBestPrice(flights)
