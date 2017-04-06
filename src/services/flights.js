@@ -1,4 +1,5 @@
 import co from 'co'
+import twillio from '../services/twillio'
 
 import api from '../helpers/api'
 import { buildRequestArray, buildFlightPostArray } from '../helpers/flights'
@@ -11,10 +12,10 @@ import { msg } from '../helpers/utils'
  * for different destinations within the same time range and service
  * @param urls
  */
-const getFlights = urls => co(function * () {
-  const response = yield buildRequestArray(urls)
+const getFlights = services => co(function * () {
+  const response = yield buildRequestArray(services)
   msg('--- Successfully get flights from urls ---')
-  return response
+  return response[0]
 })
 
 /**
@@ -38,8 +39,21 @@ const getBestPrice = () => co(function * () {
   return response
 })
 
+const postBestPrice = flight => co(function * () {
+  const response = yield api({method: 'PUT', path: 'best/-KgvWRGTI1jgRhXssfdi'}, flight)
+  msg('--- Just posted a new best price to firebase! ---')
+  return response
+})
+
+const alertBestPrice = flight => {
+  twillio.sendSms('Ding ding ding! $' + flight.price)
+  msg('--- Ding ding ding! Found a best price and texted the user ---')
+}
+
 export {
   getFlights,
   postFlights,
   getBestPrice,
+  postBestPrice,
+  alertBestPrice,
 }

@@ -1,12 +1,13 @@
 import request from 'request'
 import api from './api'
+import { utils } from '../helpers/parsers'
 
-export const buildRequestArray = arr => arr
-.reduce((res, url) => {
+export const buildRequestArray = services => services
+.reduce((res, service) => {
   const each = new Promise(function (resolve, reject) {
-    request(url, function (error, response, body) {
+    request(service.url, function (error, response, body) {
       if (error) return reject(error)
-      return resolve(body)
+      return resolve(utils.buildFlights(service.company, JSON.parse(body)))
     })
   })
 

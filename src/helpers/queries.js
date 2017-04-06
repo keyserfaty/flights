@@ -24,7 +24,15 @@ const services = {
  */
 const list = user.dest
   .map(to => Object.keys(services)
-    .map(service => services[service](user.from, to, ''))
+    .reduce((res, service) => {
+      const each = {
+        url: services[service](user.from, to, ''),
+        company: service.toUpperCase(),
+      }
+
+      res.push(each)
+      return res
+    }, [])
   )
   .reduce((prev, curr) =>
     prev.concat(curr)
