@@ -1,5 +1,5 @@
 import request from 'request'
-import api from './services/api'
+import api from './api'
 
 export const buildRequestArray = arr => arr
 .reduce((res, url) => {
@@ -21,6 +21,3 @@ export const buildFlightPostArray = arr => arr
   res.push(each)
   return res
 }, [])
-
-export const fail = msg => console.log(msg)
-export const msg = msg => console.log(msg)

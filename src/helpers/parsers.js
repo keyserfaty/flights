@@ -33,7 +33,19 @@ alMundo.buildFlights = d => d
   return res
 }, [])
 
+const utils = {}
+utils.buildFlights = (company, arr) => {
+  switch (company) {
+    case 'DESPEGAR':
+      return despegar.buildFlights(arr)
+
+    case 'ALMUNDO':
+      return alMundo.buildFlights(arr)
+  }
+}
+
 export {
   despegar,
   alMundo,
+  utils,
 }

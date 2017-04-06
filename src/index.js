@@ -2,9 +2,9 @@ import twillio from './services/twillio'
 import CronJob from 'cron'
 import co from 'co'
 
-import api from './services/api'
+import api from './helpers/api'
 import config from './config'
-import { msg } from './helpers'
+import { msg } from './helpers/utils'
 
 import { getLowerPrice, getLowerPrices } from './parsers'
 import { getFlights, getBestPrice } from './services/flights'

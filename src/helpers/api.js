@@ -2,7 +2,7 @@ import request from 'request'
 import config from '../config'
 
 const api = (opt, obj) => {
-  var req = {
+  const req = {
     method: opt.method,
     url: config.firebase + opt.path + '.json',
     json: true,
