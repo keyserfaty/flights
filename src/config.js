@@ -1,28 +1,19 @@
-var cfg = {}
-
-cfg.user = {
-  name: 'Karen',
-  phone: '+541136266811',
+const cfg = {
+  firebase: 'https://flights-d62e5.firebaseio.com/',
+  almundo: 'https://almundo.com.ar/flights/async/itineraries',
+  port: process.env.PORT || 3000,
+  secret: process.env.APP_SECRET || 'keyboard cat',
+  accountSid: process.env.TWILIO_ACCOUNT_SID,
+  authToken: process.env.TWILIO_AUTH_TOKEN,
+  sendingNumber: process.env.TWILIO_NUMBER,
 }
 
-// Firebase API
-cfg.firebase = 'https://flights-d62e5.firebaseio.com/'
-
-// Almundo API
-cfg.almundo = 'https://almundo.com.ar/flights/async/itineraries'
-
-// Destinations
-cfg.dest = ['PAR', 'MAD', 'LON', 'BRU']
-
-// HTTP Port to run our web application
-cfg.port = process.env.PORT || 3000
-
-cfg.secret = process.env.APP_SECRET || 'keyboard cat'
-
-// Twilio
-cfg.accountSid = process.env.TWILIO_ACCOUNT_SID
-cfg.authToken = process.env.TWILIO_AUTH_TOKEN
-cfg.sendingNumber = process.env.TWILIO_NUMBER
+// TODO: shouldn't be hardcoded in future versions of the app
+const user = {
+  name: 'Karen',
+  phone: '+541136266811',
+  dest: ['PAR', 'MAD', 'LON', 'BRU'],
+}
 
 var requiredConfig = [cfg.accountSid, cfg.authToken, cfg.sendingNumber]
 var isConfigured = requiredConfig.every(function (configValue) {
@@ -36,6 +27,7 @@ if (!isConfigured) {
   throw new Error(errorMessage)
 }
 
-// Export configuration object
-module.exports = cfg
-
+export {
+  cfg,
+  user,
+}
