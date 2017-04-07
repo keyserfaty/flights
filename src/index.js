@@ -29,7 +29,7 @@ const getFlightsFromServices = () => co(function * () {
   }
 })
 
-cron.CronJob('*/15 * * * *', function () {
+new cron.CronJob('*/15 * * * *', function () {
   msg('--- Starting a new batch at ' + Date.now() + ' ---')
   getFlightsFromServices()
 }, null, true, 'America/Los_Angeles')
