@@ -24,7 +24,7 @@ const getFlightsFromServices = () => co(function * () {
       yield postBestPrice(flight)
       yield alertBestPrice(flight)
     } else {
-      msg('--- No best price find in batch :( ---')
+      msg('--- No best price found in batch :( ---')
     }
   }
 })

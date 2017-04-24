@@ -16,6 +16,8 @@ const user = {
   phone: '+541136266811',
   dest: ['PAR', 'MAD', 'LON', 'BRU'],
   from: 'BUE',
+  fromDate: '2017-08-01',
+  toDate: '2017-08-15',
 }
 
 var requiredConfig = [cfg.accountSid, cfg.authToken, cfg.sendingNumber]

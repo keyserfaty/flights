@@ -14,7 +14,7 @@ import { msg } from '../helpers/utils'
  */
 const getFlights = services => co(function * () {
   const response = yield buildRequestArray(services)
-  msg('--- Successfully get flights from urls ---')
+  msg('--- Successfully got flights from urls ---')
   return response[0]
 })
 

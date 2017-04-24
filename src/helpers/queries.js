@@ -1,17 +1,21 @@
 import { cfg, user } from '../config'
 
-const despegar = (from, to, date) => {
+const despegar = (from, to, fromDate, toDate) => {
   const fromTo = (from + to).toUpperCase()
   const toFrom = (to + from).toUpperCase()
 
-  return `${cfg.DESPEGAR}/ROUNDTRIP/${from.toLowerCase()}/${to.toLowerCase()}/INTERNATIONAL/NA/prism_AR_0_FLIGHTS_A-1_C-0_I-0_RT-${fromTo}20170708-${toFrom}20170722_applyDynaprov-false_channel-site/2/PRECLUSTER/TOTALFARE/ASCENDING/1/NA/NA/ARS/ARS/NA/NA/NA/NA/NA/NA/NA/NA/NA/NA/NA/NA/NA?hashForData=jT3qPEg%2FMXVOrE5zYaJCWHwmJA4UnEPcEHD8Hx3qCYVuhVVb5STh%2FGVSM%2BJdJLym0OksX0gcoCPSlxEGYiUsIA%3D%3D`
+  return `${cfg.DESPEGAR}/ROUNDTRIP/${from.toLowerCase()}/${to.toLowerCase()}/INTERNATIONAL/NA/prism_AR_0_FLIGHTS_A-1_C-0_I-0_RT-${fromTo}${fromDate.split('-').join('')}-${toFrom}${toDate.split('-').join('')}_applyDynaprov-false_channel-site/2/PRECLUSTER/TOTALFARE/ASCENDING/1/NA/NA/ARS/ARS/NA/NA/NA/NA/NA/NA/NA/NA/NA/NA/NA/NA/NA?hashForData=jT3qPEg%2FMXVOrE5zYaJCWHwmJA4UnEPcEHD8Hx3qCYVuhVVb5STh%2FGVSM%2BJdJLym0OksX0gcoCPSlxEGYiUsIA%3D%3D`
 }
 
-const alMundo = (from, to, date) =>
-  `${cfg.ALMUNDO}?adults=1&date=2017-07-16,2017-07-26&from=${from.toUpperCase()},${to.toUpperCase()}&to=${to.toUpperCase()},${from.toUpperCase()}`
+const alMundo = (from, to, fromDate, toDate) => {
+  const fromTo = `${from.toUpperCase()},${to.toUpperCase()}`
+  const toFrom = `${to.toUpperCase()},${from.toUpperCase()}`
+
+  return `${cfg.ALMUNDO}?adults=1&date=${fromDate},${toDate}&from=${fromTo}&to=${toFrom}`
+}
 
 const services = {
-  despegar,
+  //despegar,
   alMundo,
 }
 
@@ -26,7 +30,7 @@ const list = user.dest
   .map(to => Object.keys(services)
     .reduce((res, service) => {
       const each = {
-        url: services[service](user.from, to, ''),
+        url: services[service](user.from, to, user.fromDate, user.toDate),
         company: service.toUpperCase(),
       }
 
